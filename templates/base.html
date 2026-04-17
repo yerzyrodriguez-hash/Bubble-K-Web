@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbleklzt - Korean Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Bubble<span>klzt</span></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Catálogo</a></li>
+                <li><a href="{{ url_for('ver_carrito') }}" class="btn-cart">🛒 Carrito ({{ session.get('carrito', []) | length }})</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 Bubbleklzt. Todos los derechos reservados.</p>
+    </footer>
+    <div class="floating-container">
+        <div class="floating-menu">
+            <a href="https://wa.me/591XXXXXXXX" target="_blank" class="floating-item" title="Chat de WhatsApp">
+                <img src="{{ url_for('static', filename='img/WhatsApp_icon.png') }}" alt="WhatsApp">
+            </a>
+            
+            <a href="https://www.instagram.com/bubbleklzt?igsh=aHNmcm1pNnUxcjl1" target="_blank" class="floating-item" title="Nuestro Instagram">
+                <img src="{{ url_for('static', filename='img/instagram_icon.png') }}" alt="Instagram">
+            </a>
+        </div>
+        
+        <div class="floating-main" title="Contáctanos">
+            <img src="{{ url_for('static', filename='img/icon_tienda.jpg') }}" alt="Bubbleklzt">
+        </div>
+    </div>
+</body>
+</html>

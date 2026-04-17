@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Descubre tu estilo con Bubbleklzt</h1>
+    <p>Los mejores álbumes de K-Pop y regalos personalizados directamente para ti.</p>
+</section>
+
+<div class="promo-banner">
+    <h3>🎁 ¡Promoción Cestas Personalizadas! 🩷</h3>
+    <p>Por compras superiores a <strong>30€</strong> en artículos (álbumes aparte), llévate tu pedido en formato cesta <strong>SIN COSTE</strong>.<br>
+    Añadiremos regalitos sorpresa para hacerlo aún más especial.<br>
+    <small><em>📆 Disponible todo el año. ⏰ Recuerda hacer tu pedido con mínimo 5 días de antelación.</em></small></p>
+</div>
+
+<h2 class="section-title">Productos Destacados</h2>
+
+<div class="grid-productos">
+    {% for producto in productos %}
+    <div class="card">
+        <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}" class="card-img">
+        <div class="card-body">
+            <h3 class="card-title">{{ producto.nombre }}</h3>
+            <p class="card-desc">{{ producto.desc }}</p>
+            <div class="card-footer">
+                <span class="precio">€{{ "%.2f"|format(producto.precio) }}</span>
+                <form action="{{ url_for('agregar_carrito', id=producto.id) }}" method="POST" style="margin: 0;">
+                    <button type="submit" class="btn-add">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    document.querySelectorAll('form[action*="agregar_carrito"]').forEach(form => {
+        form.addEventListener('submit', function(evento) {
+            evento.preventDefault();
+            const boton = this.querySelector('.btn-add');
+            const textoOriginal = boton.innerText;
+            boton.innerText = '¡Agregado! ✓';
+            boton.style.backgroundColor = 'var(--brand-dark)';
+            boton.style.color = 'white';
+            boton.style.borderColor = 'var(--brand-dark)';
+            fetch(this.action, {
+                method: 'POST'
+            })
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                if(datos.success) {
+                    const iconoCarrito = document.querySelector('.btn-cart');
+                    iconoCarrito.innerText = `🛒 Carrito (${datos.cantidad_carrito})`;
+                    setTimeout(() => {
+                        boton.innerText = textoOriginal;
+                        boton.style.backgroundColor = ''; 
+                        boton.style.color = '';
+                        boton.style.borderColor = '';
+                    }, 1500);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

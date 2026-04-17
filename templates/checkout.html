@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="section-title">Datos de Envío</h2>
+
+<div class="checkout-box" style="max-width: 600px; margin: 0 auto; background-color: #fff; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+    <h3 style="text-align: center; margin-bottom: 20px;">Completa tus datos para finalizar</h3>
+    
+    <form id="form-whatsapp">
+        <div class="form-group">
+            <label style="font-size: 14px; font-weight: 500; color: var(--text-muted);">Nombre Completo</label>
+            <input type="text" id="cliente-nombre" class="form-control" placeholder="Ej: María Pérez" required>
+        </div>
+        
+        <div class="form-group">
+            <label style="font-size: 14px; font-weight: 500; color: var(--text-muted);">Dirección de Entrega</label>
+            <input type="text" id="cliente-direccion" class="form-control" placeholder="Calle, Número, Piso, Código Postal" required>
+        </div>
+        
+        <div class="form-group">
+            <label style="font-size: 14px; font-weight: 500; color: var(--text-muted);">Notas Adicionales (Opcional)</label>
+            <input type="text" id="cliente-notas" class="form-control" placeholder="Ej: Es para un regalo, entregar por la tarde...">
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button type="submit" class="btn-cart" style="width: 100%; padding: 15px; font-size: 16px; border: none; cursor: pointer;">
+                Enviar Pedido por WhatsApp 💬
+            </button>
+            <a href="{{ url_for('ver_carrito') }}" style="display: block; text-align: center; margin-top: 15px; color: var(--text-muted); text-decoration: none; font-size: 14px;">
+                ← Volver al carrito
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('form-whatsapp').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        const nombre = document.getElementById('cliente-nombre').value;
+        const direccion = document.getElementById('cliente-direccion').value;
+        const notas = document.getElementById('cliente-notas').value || "Ninguna";
+        
+        // Traemos los datos de Flask
+        const carrito = {{ carrito | tojson | safe }};
+        const total = {{ total }};
+        
+        // RECUERDA CAMBIAR ESTOS CEROS POR EL NÚMERO DE LA TIENDA
+        const telefonoTienda = "34000000000"; 
+        
+        let mensaje = `🌸 *NUEVO PEDIDO - BUBBLEKLZT* 🌸\n\n`;
+        mensaje += `👤 *Cliente:* ${nombre}\n`;
+        mensaje += `📍 *Dirección:* ${direccion}\n`;
+        mensaje += `📝 *Notas:* ${notas}\n\n`;
+        mensaje += `🛍️ *DETALLE DEL PEDIDO:*\n`;
+        
+        carrito.forEach(item => {
+            mensaje += `- 1x ${item.nombre} (${item.precio.toFixed(2)}€)\n`;
+        });
+        
+        mensaje += `\n💰 *TOTAL A PAGAR: ${total.toFixed(2)}€*\n\n`;
+        mensaje += `¡Hola! Confirmo mi pedido. ¿Me indican los métodos de pago?`;
+        
+        const urlWhatsApp = `https://wa.me/${telefonoTienda}?text=${encodeURIComponent(mensaje)}`;
+        
+        // Abrimos WhatsApp y redirigimos la página actual al mensaje de éxito
+        window.open(urlWhatsApp, '_blank');
+        window.location.href = "{{ url_for('pagar') }}";
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 60px 20px; background-color: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-top: 40px;">
+    <h1 style="font-size: 48px; margin-bottom: 10px;">✨</h1>
+    <h2 class="section-title" style="margin-bottom: 15px;">¡Gracias por tu pedido!</h2>
+    <p style="color: #777; font-size: 16px; margin-bottom: 30px;">
+        Tu orden en Bubbleklzt ha sido confirmada y está siendo preparada. <br>
+        (Esta es una simulación de pago exitoso).
+    </p>
+    <a href="{{ url_for('inicio') }}" class="btn-cart" style="text-decoration: none; padding: 12px 30px;">Volver a la Tienda</a>
+</div>
+{% endblock %}
