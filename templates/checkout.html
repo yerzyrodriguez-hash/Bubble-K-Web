@@ -41,11 +41,10 @@
         const direccion = document.getElementById('cliente-direccion').value;
         const notas = document.getElementById('cliente-notas').value || "Ninguna";
         
-        // Traemos los datos de Flask
         const carrito = {{ carrito | tojson | safe }};
         const total = {{ total }};
         
-        // RECUERDA CAMBIAR ESTOS CEROS POR EL NÚMERO DE LA TIENDA
+        // NÚMERO DE LA TIENDA
         const telefonoTienda = "34000000000"; 
         
         let mensaje = `🌸 *NUEVO PEDIDO - BUBBLEKLZT* 🌸\n\n`;
@@ -63,7 +62,6 @@
         
         const urlWhatsApp = `https://wa.me/${telefonoTienda}?text=${encodeURIComponent(mensaje)}`;
         
-        // Abrimos WhatsApp y redirigimos la página actual al mensaje de éxito
         window.open(urlWhatsApp, '_blank');
         window.location.href = "{{ url_for('pagar') }}";
     });

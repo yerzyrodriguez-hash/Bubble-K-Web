@@ -1,14 +1,14 @@
 /* === PALETA K-BEAUTY (Basada en los colores de la marca) === */
 :root {
-    --bg-color: #fcfcfc;         /* Fondo súper claro y limpio */
+    --bg-color: #fcfcfc;
     --surface: #ffffff;
-    --text-main: #4a4a4a;        /* Gris oscuro para el texto (menos agresivo que el negro) */
+    --text-main: #4a4a4a;
     --text-muted: #888888;
-    --brand-primary: #ffb6c1;    /* Rosa pastel característico */
-    --brand-dark: #ff8fab;       /* Rosa más intenso para botones y hover */
+    --brand-primary: #ffb6c1;
+    --brand-dark: #ff8fab;
     --border-color: #f0f0f0;
-    --danger-soft: #fff0f3;      /* Fondo rosado/rojizo muy transparente */
-    --danger-text: #ff4d6d;      /* Rojo suave para el botón de borrar */
+    --danger-soft: #fff0f3;
+    --danger-text: #ff4d6d;
 }
 
 * {
@@ -246,8 +246,8 @@ body {
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     transition: transform 0.2s;
-    background-color: white; /* Fondo blanco por si la imagen tiene transparencias */
-    overflow: hidden; /* Corta lo que se salga del círculo */
+    background-color: white;
+    overflow: hidden;
 }
 
 .floating-item:hover {
@@ -267,7 +267,7 @@ body {
     transition: transform 0.3s;
     background-color: white;
     overflow: hidden;
-    border: 2px solid var(--surface); /* Un borde blanco sutil */
+    border: 2px solid var(--surface);
 }
 
 /* Animación al hacer hover */

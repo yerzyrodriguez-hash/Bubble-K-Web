@@ -46,6 +46,7 @@ PRODUCTOS = [
         "desc": "Celebra fechas especiales con regalitos extra. *Pedir con 5 días de antelación."
     }
 ]
+
 @app.route('/')
 def inicio():
     return render_template('index.html', productos=PRODUCTOS)
