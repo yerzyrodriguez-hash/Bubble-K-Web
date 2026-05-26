@@ -33,7 +33,7 @@
             </a>
             
             <a href="https://www.instagram.com/bubbleklzt?igsh=aHNmcm1pNnUxcjl1" target="_blank" class="floating-item" title="Nuestro Instagram">
-                <img src="{{ url_for('static', filename='img/instagram_icon.png') }}" alt="Instagram">
+                <img src="{{ url_for('static', filename='img/Instagram_icon.png') }}" alt="Instagram">
             </a>
         </div>
         
@@ -41,5 +41,25 @@
             <img src="{{ url_for('static', filename='img/icon_tienda.jpg') }}" alt="Bubbleklzt">
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingContainer = document.querySelector('.floating-container');
+            const floatingMain = document.querySelector('.floating-main');
+
+            // Al hacer clic en el logo de la burbuja, alternamos la clase 'activo'
+            floatingMain.addEventListener('click', function(e) {
+                e.preventDefault();
+                floatingContainer.classList.toggle('activo');
+            });
+
+            // Si el usuario toca cualquier otra parte de la pantalla, cerramos la burbuja
+            document.addEventListener('click', function(e) {
+                // Comprobamos si el clic fue AFUERA de la burbuja
+                if (!floatingContainer.contains(e.target)) {
+                    floatingContainer.classList.remove('activo');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

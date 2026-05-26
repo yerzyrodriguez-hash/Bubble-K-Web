@@ -220,22 +220,45 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    pointer-events: none; 
 }
+
 .floating-menu {
     display: flex;
     flex-direction: column;
     gap: 15px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(20px); 
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.3s;
 }
-.floating-container:hover .floating-menu {
+
+@media (hover: hover) {
+    .floating-container:hover {
+        pointer-events: auto;
+    }
+
+    .floating-container:hover .floating-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .floating-container:hover .floating-main {
+        transform: rotate(15deg) scale(1.1);
+    }
+}
+.floating-container.activo .floating-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
-/* Estilos de los contenedores de las bolitas pequeñas */
+
+.floating-container.activo .floating-main {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Estilos de los contenedores */
 .floating-item {
     width: 50px;
     height: 50px;
@@ -248,13 +271,14 @@ body {
     transition: transform 0.2s;
     background-color: white;
     overflow: hidden;
+    pointer-events: auto; 
 }
 
 .floating-item:hover {
     transform: scale(1.15);
 }
 
-/* La bolita principal (Contenedor del logo) */
+/* (Contenedor del logo) */
 .floating-main {
     width: 60px;
     height: 60px;
@@ -268,10 +292,13 @@ body {
     background-color: white;
     overflow: hidden;
     border: 2px solid var(--surface);
+    -webkit-tap-highlight-color: transparent; 
+    pointer-events: auto; 
 }
 
-/* Animación al hacer hover */
-.floating-container:hover .floating-main {
+/* Animación al hacer hover o estar activo */
+.floating-container:hover .floating-main,
+.floating-container.activo .floating-main {
     transform: rotate(15deg) scale(1.1);
 }
 
@@ -312,19 +339,58 @@ footer {
     .hero h1 {
         font-size: 26px;
     }
-    .floating-bubble {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-    }
     .cart-container table {
         font-size: 14px;
     }
-}
 
-/* === BANNER PROMOCIONAL === */
+    .grid-productos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-img {
+        height: 160px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .card-title {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .card-desc {
+        font-size: 11px;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .precio {
+        font-size: 16px;
+    }
+
+    .btn-add {
+        width: 100%;
+        padding: 8px;
+        font-size: 12px;
+        border-radius: 15px;
+    }
+}
 .promo-banner {
     background-color: var(--danger-soft);
     border: 2px dashed var(--brand-dark);
